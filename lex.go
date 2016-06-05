@@ -73,7 +73,7 @@ func (scanner *Scanner) scan(r *regexp.Regexp) int {
 
 func findPattern(ld *LexerDef, scanner *Scanner) (Action, int, bool) {
 	var action Action
-	max := 0
+	max := -1
 	for i := 0; i < len(ld.regs); i++ {
 		n := scanner.scan(ld.regs[i])
 		if n != -1 && max < n {
@@ -84,7 +84,7 @@ func findPattern(ld *LexerDef, scanner *Scanner) (Action, int, bool) {
 			action = ld.actions[i]
 		}
 	}
-	return action, max, max != 0
+	return action, max, max != -1
 }
 
 func (scanner *Scanner) Text() string {
